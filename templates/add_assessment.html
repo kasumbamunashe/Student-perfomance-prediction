@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Assessment</title>
+</head>
+<body>
+    <h1>Add Assessment</h1>
+    <form method="POST">
+        <label for="student_id">Student:</label>
+        <select id="student_id" name="student_id">
+            {% for student in students %}
+            <option value="{{ student.id }}">{{ student.name }}</option>
+            {% endfor %}
+        </select><br>
+        <label for="test_score">Test Score:</label>
+        <input type="number" step="0.1" id="test_score" name="test_score" required><br>
+        <label for="assignment_score">Assignment Score:</label>
+        <input type="number" step="0.1" id="assignment_score" name="assignment_score" required><br>
+        <label for="study_hours">Study Hours:</label>
+        <input type="number" step="0.1" id="study_hours" name="study_hours" required><br>
+        <input type="submit" value="Add Assessment">
+    </form>
+    <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+</body>
+</html>

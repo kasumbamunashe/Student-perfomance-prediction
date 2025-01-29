@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Performance Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .student-info, .report-section {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .student-info h2, .report-section h2 {
+            margin-top: 0;
+            color: #555;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .weak-points {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .suggestions {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Student Performance Report</h1>
+
+        <div class="student-info">
+            <h2>Student Information</h2>
+            <p><strong>Name:</strong> {{ student.name }}</p>
+            <p><strong>Surname:</strong> {{ student.surname }}</p>
+            <p><strong>ID:</strong> {{ student.id }}</p>
+            <p><strong>Email:</strong> {{ student.email }}</p>
+        </div>
+
+        <div class="report-section">
+            <h2>Predictions</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Prediction Status</th>
+                        <th>Overall Status</th>
+                        <th>Date</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for prediction in predictions %}
+                    <tr>
+                        <td>{{ prediction.predicted_status}}</td>
+                        <td>{{ prediction.overall_status}}</td>
+                        <td>{{ prediction.created_at}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+        <div class="report-section">
+            <h2>Suggestions</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Poorly perfoming area</th>
+                        <th>Suggestion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for suggestion in suggestions %}
+                    <tr>
+                        <td>{{ suggestion.weak_area}}</td>
+                        <td>{{ suggestion.suggestion }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

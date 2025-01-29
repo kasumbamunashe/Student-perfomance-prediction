@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <style>
+        /* General body styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+
+        /* Side navigation styles */
+        .sidenav {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #2c3e50;
+            padding-top: 20px;
+            overflow: auto;
+            border-right: 1px solid #ddd;
+        }
+
+        .sidenav a {
+            padding: 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .sidenav a:hover {
+            background-color: #34495e;
+            color: #ffffff;
+        }
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* Section styles */
+        .section {
+            display: none;
+            margin: 20px 0;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section h3 {
+            background-color: #2c3e50;
+            width: 40%;
+            text-align:center;
+            align:center;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        .section p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .section ul li {
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+        }
+
+        .section ul li p {
+            margin: 5px 0;
+        }
+
+        /* Button styles */
+        .btn {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .custom-card {
+    max-width: 600px; /* Maximum width of the card */
+    width: 100%;      /* Ensures responsiveness */
+    margin: 0 auto;   /* Centers the card horizontally */
+    border: 1px solid #ddd; /* Optional: Adds a border to the card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+    border-radius: 8px; /* Rounds the corners of the card */
+}   background-color: #dce6df;
+
+
+        .btn:hover {
+            background-color: #1c6ea4;
+        }
+
+        /* Profile section styles */
+        .profile-title {
+            font-size: 28px;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .profile-details {
+            background-color: #2c3e50;
+            padding: 20px;
+            color:white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-details p {
+            margin: 12px 0;
+            font-size: 16px;
+        }
+
+        .profile-details strong {
+            color: white;
+        }
+
+        .update-profile-btn {
+            margin-top: 20px;
+            padding: 12px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #2c3e50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .update-profile-btn:hover {
+            background-color: #1c6ea4;
+        }
+
+        /* Form styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        .form-actions {
+            margin-top: 20px;
+        }
+
+        .form-actions .btn {
+            margin-right: 10px;
+        }
+        .profile-form {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .profile-form.active {
+            display: block;
+        }
+
+        .profile-form .form-actions {
+            margin-top: 20px;
+        }
+
+        .profile-form .form-actions .btn {
+            margin-right: 10px;
+        }
+        .profile-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-form .form-group {
+    margin-bottom: 15px;
+}
+
+.profile-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+.section {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    max-width: 1000px; /* Adjust the width as needed */
+    margin: 20px auto;
+}
+
+.assessment-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.assessment-card {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.assessment-card p {
+    margin: 5px 0;
+}
+
+.assessment-card p strong {
+    color: #333;
+}
+
+
+.profile-form input[type="text"],
+.profile-form input[type="email"],
+.profile-form select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #333;
+}
+
+.profile-form input[type="text"]:focus,
+.profile-form input[type="email"]:focus,
+.profile-form select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.profile-form .form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.profile-form .form-actions .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.profile-form .form-actions .btn:hover {
+    background-color: #0056b3;
+}
+
+.profile-form .form-actions .btn:nth-child(2) {
+    background-color: #6c757d;
+}
+
+.profile-form .form-actions .btn:nth-child(2):hover {
+    background-color: #5a6268;
+}
+.section {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    max-width: 1000px; /* Adjust the width as needed */
+    margin: 20px auto;
+}
+
+.prediction-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.prediction-card {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.prediction-card p {
+    margin: 5px 0;
+}
+
+.prediction-card p strong {
+    color: #333;
+}
+
+.prediction-card h4 {
+    margin-top: 15px;
+    color: #444;
+}
+
+.prediction-card ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.prediction-card ul li {
+    margin-bottom: 10px;
+}
+
+
+    </style>
+</head>
+<body>
+
+    <div class="sidenav">
+        <a href="#profile" onclick="showSection(event, 'profile')">Profile</a>
+        <a href="#settings" onclick="showSection(event, 'settings')">Settings</a>
+        <a href="#marks" onclick="showSection(event, 'marks')">Assessment Marks</a>
+        <a href="#assessments" onclick="showSection(event, 'assessments')">Prediction Results</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+    <div class="content">
+        <section id="profile" class="section active">
+          <div class="container my-4">
+    <div class="custom-card card">
+        <div class="card-body">
+            <h2 class="card-title" align="center">Profile Details</h2>
+            <div class="profile-details">
+                <p><strong>Name:</strong> {{ student.name }} {{ student.surname }}</p>
+                <p><strong>Email:</strong> {{ student.email }}</p>
+                <p><strong>Gender:</strong> {{ student.gender }}</p>
+                <p><strong>Next of Kin:</strong> {{ student.nextOfKin }}</p>
+                <p><strong>Next of Kin Phone:</strong> {{ student.nextOfKinPhoneNumber }}</p>
+                <p><strong>Next of Kin Email:</strong> {{ student.nextOfKinEmail }}</p>
+                <p><strong>Level:</strong> {{ student.grade }}</p>
+            </div>
+            <br>
+            <button class="btn btn-primary mt-3" onclick="toggleProfileForm()">Update Profile</button>
+        </div>
+    </div>
+</div>
+            <!-- Profile Update Form -->
+           <div class="profile-form">
+    <form action="{{ url_for('update_student') }}" method="POST" id="profile-form">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="{{ student.name }}" required>
+        </div>
+        <div class="form-group">
+            <label for="surname">Surname:</label>
+            <input type="text" id="surname" name="surname" value="{{ student.surname }}" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="{{ student.email }}" required>
+        </div>
+        <div class="form-group">
+            <label for="updateGrade">Level:</label>
+            <select class="form-control" id="updateGrade" name="grade">
+                <option value="1">Level 1.1</option>
+                <option value="2">Level 1.2</option>
+                <option value="3">Level 2.1</option>
+                <option value="4">Level 2.2</option>
+                <option value="5">Level 3.1</option>
+                <option value="6">Level 3.2</option>
+                <option value="7">Level 4.1</option>
+                <option value="7">Level 4.2</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="updateGender">Gender:</label>
+            <select class="form-control" id="updateGender" name="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="nextOfKin">Next of Kin:</label>
+            <input type="text" id="nextOfKin" name="nextOfKin" value="{{ student.nextOfKin }}" required>
+        </div>
+        <div class="form-group">
+            <label for="nextOfKinPhoneNumber">Next of Kin Phone:</label>
+            <input type="text" id="nextOfKinPhoneNumber" name="nextOfKinPhoneNumber" value="{{ student.nextOfKinPhoneNumber }}" required>
+        </div>
+        <div class="form-group">
+            <label for="nextOfKinEmail">Next of Kin Email:</label>
+            <input type="email" id="nextOfKinEmail" name="nextOfKinEmail" value="{{ student.nextOfKinEmail }}" required>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn">Save Changes</button>
+            <button type="button" class="btn" onclick="toggleProfileForm()">Cancel</button>
+        </div>
+    </form>
+</div>
+        </section>
+
+        <section id="settings" class="section">
+            <h3>Settings</h3>
+            <p><a class="btn" href="{{ url_for('change_password') }}">Change Password</a></p>
+            <!-- Add more settings options here -->
+        </section>
+
+        <section id="marks" class="section">
+         <h2 class="card-title" align="center">Assessment Marks</h2>
+    <ul class="assessment-list">
+        {% for assessment in assessments %}
+        <li class="assessment-card">
+            <p><strong>Test Score:</strong> {{ assessment.test_score }}</p>
+            <p><strong>Assignment Score:</strong> {{ assessment.assignment_score }}</p>
+            <p><strong>Exercise Score:</strong> {{ assessment.exercise_score }}</p>
+            <p><strong>Study Hours:</strong> {{ assessment.study_hours }}</p>
+            <p><strong>Date: </strong>  {{ assessment.created_at }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+
+
+       <section id="assessments" class="section">
+     <h2 class="card-title" align="center">Prediction Results</h2>
+    <ul class="prediction-list">
+        {% for prediction in predictions %}
+        <li class="prediction-card">
+            <p><strong>Predicted Status:</strong> {{ prediction.predicted_status }}</p>
+            <p><strong>Overall Status:</strong> {{ prediction.overall_status }}</p>
+            <p><strong>Date:</strong> {{ prediction.created_at }}</p>
+
+            <h4>Suggestions:</h4>
+            <ul>
+                {% for suggestion in prediction.suggestions %}
+                <li>
+                    <p><strong>Weak Area:</strong> {{ suggestion.weak_area }}</p>
+                    <p><strong>Suggestion:</strong> {{ suggestion.suggestion }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+    </div>
+
+    <script>
+        function showSection(event, sectionId) {
+            event.preventDefault();
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        function toggleProfileForm() {
+            const form = document.querySelector('.profile-form');
+            form.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

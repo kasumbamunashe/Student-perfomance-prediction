@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Student</title>
+</head>
+<body>
+    <h1>Add Student</h1>
+    <form method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select><br>
+        <label for="grade">Grade:</label>
+        <input type="text" id="grade" name="grade" required><br>
+        <input type="submit" value="Add Student">
+    </form>
+    <a href="{{ url_for('manage_students') }}">Back to Manage Students</a>
+</body>
+</html>

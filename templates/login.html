@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<style>
+    /* General styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    background-image: url('../static/back to school.jpg'); /* Path to your background image */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2 {
+    color: white;
+    margin-bottom: 20px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: white;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.btn {
+    background-color: #45b6fe;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background-color: #3498db;
+}
+
+.forgot-password {
+    display: block;
+    margin-top: 10px;
+    color: #45b6fe;
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.flashes {
+    margin-top: 20px;
+}
+
+.flash {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    color: white;
+}
+
+.flash.success {
+    background-color: #28a745;
+}
+
+.flash.error {
+    background-color: #dc3545;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-container {
+        padding: 15px;
+    }
+
+    .btn {
+        padding: 12px;
+        font-size: 14px;
+    }
+}
+
+</style>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form method="POST" class="login-form">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn">Login</button>
+        </form>
+        <a href="{{ url_for('forgot_password') }}" class="forgot-password">Forgot Password?</a>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flashes">
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>
